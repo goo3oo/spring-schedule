@@ -22,14 +22,20 @@ public class ScheduleController {
 
     @PostMapping
     public ResponseEntity<CreateScheduleResponseDto> createSchedule(
-            @RequestBody CreateScheduleRequestDto requestDto){
+            @RequestBody CreateScheduleRequestDto requestDto) {
         return new ResponseEntity<>(scheduleService.saveSchedule(requestDto), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<ScheduleResponseDto>> findAllSchedule(
-                @RequestParam(required = false) String author,
+            @RequestParam(required = false) String author,
             @RequestParam(required = false) String updatedAt) {
-        return new ResponseEntity<>(scheduleService.findAllSchedule(author,updatedAt),HttpStatus.OK);
+        return new ResponseEntity<>(scheduleService.findAllSchedule(author, updatedAt), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDto> findScheduleById(
+            @PathVariable Long id) {
+        return new ResponseEntity<>(scheduleService.findScheduleById(id), HttpStatus.OK);
     }
 }

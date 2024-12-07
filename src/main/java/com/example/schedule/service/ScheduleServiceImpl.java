@@ -6,12 +6,15 @@ import com.example.schedule.dto.ScheduleResponseDto;
 import com.example.schedule.entity.Schedule;
 import com.example.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +37,12 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleRepository.findAllSchedule(author, updatedAt);
     }
 
+    @Override
+    public ScheduleResponseDto findScheduleById(Long id) {
+        return scheduleRepository.findScheduleById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
     private String convertEmptyToNull(String value) {
         return (value != null && value.isEmpty()) ? null : value;
     }
@@ -50,4 +59,6 @@ public class ScheduleServiceImpl implements ScheduleService {
         }
         return null;
     }
+
+
 }

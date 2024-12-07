@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -50,6 +51,12 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
 
         sql.append(" ORDER BY updated_at DESC");
         return jdbcTemplate.query(sql.toString(),scheduleRowMapper(), params.toArray());
+    }
+
+    @Override
+    public Optional<ScheduleResponseDto> findScheduleById(Long id) {
+        List<ScheduleResponseDto> result = jdbcTemplate.query("SELECT * FROM schedule WHERE id = ?", scheduleRowMapper(), id);
+        return result.stream().findAny();
     }
 
     private RowMapper<ScheduleResponseDto> scheduleRowMapper(){
