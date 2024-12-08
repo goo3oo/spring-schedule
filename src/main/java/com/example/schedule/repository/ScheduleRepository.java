@@ -16,4 +16,5 @@ public interface ScheduleRepository {
     void updateContent(Long id, String content);
     boolean isValidId(Long id);
     boolean isValidPassword(Long id, String password);
+    void deleteSchedule(Long id);
 }

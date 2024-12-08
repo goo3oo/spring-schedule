@@ -1,9 +1,6 @@
 package com.example.schedule.service;
 
-import com.example.schedule.dto.CreateScheduleRequestDto;
-import com.example.schedule.dto.CreateScheduleResponseDto;
-import com.example.schedule.dto.ScheduleResponseDto;
-import com.example.schedule.dto.UpdateScheduleRequestDto;
+import com.example.schedule.dto.*;
 import com.example.schedule.entity.Schedule;
 import com.example.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
@@ -68,6 +65,15 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         return updatedSchedule
                 .orElseThrow(() -> new NoSuchElementException("일치하는 일정이 없습니다."));
+    }
+
+    @Override
+    public void deleteSchedule(Long id, DeleteScheduleRequestDto requestDto) {
+
+        validateId(id);
+        validatePassword(id, requestDto.getPassword());
+        scheduleRepository.deleteSchedule(id);
+
     }
 
     private void validateId(Long id) {

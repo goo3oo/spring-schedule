@@ -1,9 +1,6 @@
 package com.example.schedule.controller;
 
-import com.example.schedule.dto.CreateScheduleRequestDto;
-import com.example.schedule.dto.CreateScheduleResponseDto;
-import com.example.schedule.dto.ScheduleResponseDto;
-import com.example.schedule.dto.UpdateScheduleRequestDto;
+import com.example.schedule.dto.*;
 import com.example.schedule.service.ScheduleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -45,5 +42,14 @@ public class ScheduleController {
             @RequestBody @Valid UpdateScheduleRequestDto requestDto)
     {
         return new ResponseEntity<>(scheduleService.updateSchedule(id, requestDto),HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSchedule(
+            @PathVariable Long id,
+            @RequestBody DeleteScheduleRequestDto requestDto)
+    {
+        scheduleService.deleteSchedule(id, requestDto);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

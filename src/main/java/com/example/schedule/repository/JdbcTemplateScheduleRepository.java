@@ -95,6 +95,12 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
         return count != null && count > 0;
     }
 
+    @Override
+    public void deleteSchedule(Long id) {
+        String sql = "DELETE FROM schedule WHERE id = ?";
+        jdbcTemplate.update(sql, id);
+    }
+
     private RowMapper<ScheduleResponseDto> scheduleRowMapper(){
         return (rs, rowNum) -> new ScheduleResponseDto(
                 rs.getLong("id"),
