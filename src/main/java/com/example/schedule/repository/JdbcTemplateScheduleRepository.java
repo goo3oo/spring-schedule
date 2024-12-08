@@ -55,8 +55,44 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
 
     @Override
     public Optional<ScheduleResponseDto> findScheduleById(Long id) {
-        List<ScheduleResponseDto> result = jdbcTemplate.query("SELECT * FROM schedule WHERE id = ?", scheduleRowMapper(), id);
+        List<ScheduleResponseDto> result = jdbcTemplate.query(
+                "SELECT * FROM schedule WHERE id = ?",
+                scheduleRowMapper(),
+                id);
+
         return result.stream().findAny();
+    }
+
+    @Override
+    public void updateAuthor(Long id, String author) {
+        String sql = "UPDATE schedule SET author = ? WHERE id = ? ";
+        jdbcTemplate.update(sql, author, id);
+    }
+
+    @Override
+    public void updateTitle(Long id, String title) {
+        String sql = "UPDATE schedule SET title = ? WHERE id = ? ";
+        jdbcTemplate.update(sql, title, id);
+    }
+
+    @Override
+    public void updateContent(Long id, String content) {
+        String sql = "UPDATE schedule SET content = ? WHERE id = ? ";
+        jdbcTemplate.update(sql, content, id);
+    }
+
+    @Override
+    public boolean isValidId(Long id) {
+        String sql = "SELECT COUNT(id) FROM schedule WHERE id = ? ";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, id);
+        return count != null && count > 0;
+    }
+
+    @Override
+    public boolean isValidPassword(Long id, String password) {
+        String sql = "SELECT COUNT(id) FROM schedule WHERE id = ? AND password = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, id, password);
+        return count != null && count > 0;
     }
 
     private RowMapper<ScheduleResponseDto> scheduleRowMapper(){
