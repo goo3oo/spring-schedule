@@ -40,7 +40,7 @@ public class ScheduleController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ScheduleResponseDto> updateMemo(
+    public ResponseEntity<ScheduleResponseDto> updateSchedule(
             @PathVariable Long id,
             @RequestBody @Valid UpdateScheduleRequestDto requestDto)
     {
