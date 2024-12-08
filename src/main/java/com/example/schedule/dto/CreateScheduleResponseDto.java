@@ -8,6 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 
 public class CreateScheduleResponseDto {
+    // 일정 생성 응답 Dto
     private Long id;
     private String author;
     private String title;

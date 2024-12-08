@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 
 public class ScheduleResponseDto {
+    // 일정 응답 Dto
     private Long id;
     private String author;
     private String title;

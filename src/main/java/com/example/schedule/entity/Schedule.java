@@ -18,6 +18,7 @@ public class Schedule {
     private LocalDateTime updatedAt;
 
     public Schedule (String author, String password, String title, String content){
+        // Dto -> Entity 변환 과정에서 사용
         this.author = author;
         this.password = password;
         this.title = title;
