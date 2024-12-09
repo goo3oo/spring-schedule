@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
 public class ScheduleResponseDto {
     // 일정 응답 Dto
     private Long id;
-    private String author;
+    private String userId;
+    private String nickname;
     private String title;
     private String content;
     private LocalDateTime updatedAt;

@@ -7,13 +7,11 @@ import lombok.Getter;
 
 public class CreateScheduleRequestDto {
     // 일정 생성 요청 Dto
-    private String author;
-    private String password;
     private String title;
     private String content;
 
-    public Schedule toEntity(){
+    public Schedule toEntity(Long authorId){
     // Dto -> Entity 변환
-        return new Schedule(author, password, title, content);
+        return new Schedule(title, content, authorId);
     }
 }

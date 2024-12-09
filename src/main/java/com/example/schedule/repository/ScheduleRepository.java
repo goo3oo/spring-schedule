@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ScheduleRepository {
-    Long saveSchedule(Schedule schedule);
-    List<ScheduleResponseDto> findAllSchedule(String author, String updatedAt);
+    void saveSchedule(Schedule schedule);
+    List<ScheduleResponseDto> findAllSchedule(Long authorId, String updatedAt);
+    Long userIdToAuthorId(String userId);
     Optional<ScheduleResponseDto> findScheduleById(Long id);
-    void updateAuthor(Long id, String author);
     void updateTitle(Long id, String title);
     void updateContent(Long id, String content);
     boolean isValidId(Long id);
-    boolean isValidPassword(Long id, String password);
     void deleteSchedule(Long id);
+    Long idToAuthorId(Long id);
 }

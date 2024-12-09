@@ -1,13 +1,14 @@
 package com.example.schedule.service;
 
 import com.example.schedule.dto.*;
+import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
 
 public interface ScheduleService {
-    CreateScheduleResponseDto createSchedule(CreateScheduleRequestDto requestDto);
-    List<ScheduleResponseDto> findAllSchedule(String author, String updatedAt);
+    void createSchedule(CreateScheduleRequestDto requestDto, Long authorId);
+    List<ScheduleResponseDto> findAllSchedule(String userId, String updatedAt);
     ScheduleResponseDto findScheduleById(Long id);
-    ScheduleResponseDto updateSchedule(Long id, UpdateScheduleRequestDto requestDto);
-    void deleteSchedule(Long id, DeleteScheduleRequestDto requestDto);
+    void updateSchedule(Long userId, UpdateScheduleRequestDto requestDto, Long authorId);
+    void deleteSchedule(Long id, Long authorId);
 }
