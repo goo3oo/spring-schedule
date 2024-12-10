@@ -8,10 +8,7 @@ import com.example.schedule.util.Session;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -22,7 +19,7 @@ public class UserController {
 
     private final AuthService authService;
 
-    @PostMapping("/signup")
+    @PostMapping("/users")
     public ResponseEntity<ApiResponseDto> signup(
             @RequestBody SignupRequestDto requestDto) {
         authService.signup(requestDto);
@@ -32,7 +29,7 @@ public class UserController {
     // 개인 : 나중에 이넘처리 해보자,  로그인 실패의 이유를 알기 어렵다.
 
     // 로그인 (세션)
-    @PostMapping("/login")
+    @PostMapping("/sessions")
     public ResponseEntity<ApiResponseDto> login(
             @RequestBody LoginRequestDto requestDto, HttpSession httpSession) {
         boolean status = authService.login(requestDto, httpSession);
@@ -44,7 +41,7 @@ public class UserController {
     }
 
     // 로그아웃
-    @PostMapping("/logout")
+    @DeleteMapping ("/sessions")
     public ResponseEntity<ApiResponseDto> logout(HttpSession session) {
         Session.invalidSession(session);
         return ResponseEntity.ok(new ApiResponseDto("로그아웃 성공", true));

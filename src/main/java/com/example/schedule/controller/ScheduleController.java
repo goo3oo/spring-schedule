@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
 public class ScheduleController {
     private final ScheduleService scheduleService;
 
-    @PostMapping("/add-schedule")
+    @PostMapping
     public ResponseEntity<ApiResponseDto> createSchedule(
             @RequestBody CreateScheduleRequestDto requestDto, HttpSession session) {
         try {
@@ -50,7 +50,7 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleService.findScheduleById(id), HttpStatus.OK);
     }
 
-    @PatchMapping("/update/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<ApiResponseDto> updateSchedule(
             @PathVariable Long id,
             @RequestBody @Valid UpdateScheduleRequestDto requestDto,
@@ -69,7 +69,7 @@ public class ScheduleController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponseDto> deleteSchedule(
             @PathVariable Long id,
             HttpSession session) {
