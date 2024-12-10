@@ -29,7 +29,9 @@ public class UserController {
         return ResponseEntity.ok(new ApiResponseDto("등록이 완료되었습니다.", true));
     }
 
-    // 나중에 이넘 ??
+    // 개인 : 나중에 이넘처리 해보자,  로그인 실패의 이유를 알기 어렵다.
+
+    // 로그인 (세션)
     @PostMapping("/login")
     public ResponseEntity<ApiResponseDto> login(
             @RequestBody LoginRequestDto requestDto, HttpSession httpSession) {
@@ -38,9 +40,10 @@ public class UserController {
             return ResponseEntity.ok(new ApiResponseDto("로그인 성공", true));
         } else {
             return ResponseEntity.badRequest().body(new ApiResponseDto("로그인 실패", false));
-        }// 로그인 실패의 이유를 알기 어렵다.
+        }
     }
 
+    // 로그아웃
     @PostMapping("/logout")
     public ResponseEntity<ApiResponseDto> logout(HttpSession session) {
         Session.invalidSession(session);

@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 public class AuthServiceImpl implements AuthService {
     private final AuthorRepository authorRepository;
     private final PasswordEncoder passwordEncoder;
-    // 세션에 저장할 변수명??
 
     public void signup(SignupRequestDto signupRequestDto){
         // 가입 로직
@@ -38,8 +37,6 @@ public class AuthServiceImpl implements AuthService {
         Session.setSessionAttribute(session, author.getId());
 
         return true;
-        // 나중에 로그아웃 하기 전에 또 로그인했을 때 어떻게 되는지 ?? 확인해보기
-        // 확인해보기 싫으면 검사하기
      }
 
     private Author isValidAuthor(String userId){

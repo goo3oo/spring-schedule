@@ -43,8 +43,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public ScheduleResponseDto findScheduleById(Long id) {
-        // ID에 해당하는 일정 단건을 조회하는 로직
-        // 일정이 없을 경우 NoSuchElementException 발생
+
         return scheduleRepository.findScheduleById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
@@ -58,12 +57,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         validateId(id);
 
-        // author 값 입력 시 수정 로직
-        // title 값 입력 시 수정 로직
         if(requestDto.getTitle() != null){
             updateTitle(id, requestDto.getTitle());
         }
-        // content 값 입력 시 수정 로직
+
         if(requestDto.getContent() != null){
             updateContent(id, requestDto.getContent());
         }
@@ -75,13 +72,9 @@ public class ScheduleServiceImpl implements ScheduleService {
         if (isAuthorized(id, sessionAuthorId)) {
             throw new UnauthorizedAccessException("수정 권한이 없습니다.");
         }
-        // ID에 해당하는 일정 삭제
-        // 유효성 검사 후 삭제 수행
-        // 주어진 ID가 존재하는지 확인
-        // ID가 없으면 NoSuchElementException 발생
+
         validateId(id);
 
-        // 일정 삭제 로직 실행
         scheduleRepository.deleteSchedule(id);
     }
 
