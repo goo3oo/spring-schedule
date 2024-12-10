@@ -12,24 +12,24 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-
 @RequiredArgsConstructor
 
 public class UserController {
 
     private final AuthService authService;
 
-    @PostMapping("/users")
+    // 가입
+    @PostMapping("/signup")
     public ResponseEntity<ApiResponseDto> signup(
             @RequestBody SignupRequestDto requestDto) {
         authService.signup(requestDto);
         return ResponseEntity.ok(new ApiResponseDto("등록이 완료되었습니다.", true));
     }
 
-    // 개인 : 나중에 이넘처리 해보자,  로그인 실패의 이유를 알기 어렵다.
+    // 개인 주석 : 나중에 이넘처리 해보자,  로그인 실패의 이유를 알기 어렵다.
 
-    // 로그인 (세션)
-    @PostMapping("/sessions")
+    // 세션으로 로그인
+    @PostMapping("/login")
     public ResponseEntity<ApiResponseDto> login(
             @RequestBody LoginRequestDto requestDto, HttpSession httpSession) {
         boolean status = authService.login(requestDto, httpSession);
@@ -41,7 +41,7 @@ public class UserController {
     }
 
     // 로그아웃
-    @DeleteMapping ("/sessions")
+    @DeleteMapping("/logout")
     public ResponseEntity<ApiResponseDto> logout(HttpSession session) {
         Session.invalidSession(session);
         return ResponseEntity.ok(new ApiResponseDto("로그아웃 성공", true));
