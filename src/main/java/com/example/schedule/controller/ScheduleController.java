@@ -24,15 +24,15 @@ public class ScheduleController {
     @PostMapping("/add-schedule")
     public ResponseEntity<ApiResponseDto> createSchedule(
             @RequestBody CreateScheduleRequestDto requestDto, HttpSession session) {
-            try{
-                Long authorId = Session.getSessionAttribute(session);
-                scheduleService.createSchedule(requestDto, authorId);
-                return new ResponseEntity<>(new ApiResponseDto("일정이 등록되었습니다.", true), HttpStatus.CREATED);
-            } catch (NoSuchElementException e) {
-                return new ResponseEntity<>(new ApiResponseDto("로그인이 필요합니다.", false), HttpStatus.UNAUTHORIZED);
-            } catch (IllegalStateException e) {
-                return new ResponseEntity<>(new ApiResponseDto("회원 정보가 없습니다.", false), HttpStatus.BAD_REQUEST);
-            }
+        try {
+            Long authorId = Session.getSessionAttribute(session);
+            scheduleService.createSchedule(requestDto, authorId);
+            return new ResponseEntity<>(new ApiResponseDto("일정이 등록되었습니다.", true), HttpStatus.CREATED);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(new ApiResponseDto("로그인이 필요합니다.", false), HttpStatus.UNAUTHORIZED);
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<>(new ApiResponseDto("로그인 정보가 올바르지 않습니다.", false), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping
@@ -63,7 +63,7 @@ public class ScheduleController {
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(new ApiResponseDto("로그인이 필요합니다.", false), HttpStatus.UNAUTHORIZED);
         } catch (IllegalStateException e) {
-            return new ResponseEntity<>(new ApiResponseDto("회원 정보가 없습니다.", false), HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new ApiResponseDto("로그인 정보가 올바르지 않습니다.", false), HttpStatus.BAD_REQUEST);
         } catch (UnauthorizedAccessException e) {
             return new ResponseEntity<>(new ApiResponseDto("수정 권한이 없습니다.", false), HttpStatus.FORBIDDEN);
         }
@@ -81,7 +81,7 @@ public class ScheduleController {
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(new ApiResponseDto("로그인이 필요합니다.", false), HttpStatus.UNAUTHORIZED);
         } catch (IllegalStateException e) {
-            return new ResponseEntity<>(new ApiResponseDto("회원 정보가 없습니다.", false), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ApiResponseDto("로그인 정보가 올바르지 않습니다.", false), HttpStatus.BAD_REQUEST);
         } catch (UnauthorizedAccessException e) {
             return new ResponseEntity<>(new ApiResponseDto("삭제 권한이 없습니다.", false), HttpStatus.FORBIDDEN);
         }
